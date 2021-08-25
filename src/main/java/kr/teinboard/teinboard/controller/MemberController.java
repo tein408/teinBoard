@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
@@ -23,7 +24,7 @@ public class MemberController {
     }
 
     @PostMapping(value = "/members/new")
-    public String createMember(@Valid MemberForm memberForm, BindingResult result) {
+    public String createMember(@RequestBody @Valid MemberForm memberForm, BindingResult result) {
         //BindingResult -> name field에 대해 에러를 뽑아준다.
         if(result.hasErrors()){
             return "/members/createMemberForm";
