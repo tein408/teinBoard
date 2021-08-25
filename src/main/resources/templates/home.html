@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <section class="py-5 text-center container bg-light">
+        <div class="row py-lg-5">
+
+            <h3 class="fw-light">회원 기능</h3>
+            <div>
+                <p><span></span> 님 반갑습니다.</p>
+            </div>
+
+            <div class="container-fluid py-5">
+
+                <p>
+                    <a class="btn btn-primary btn-lg" th:href="@{/members/new}">회원 가입</a>
+                    <a class="btn btn-primary btn-lg" th:href="@{/members/signUp}">로그인</a>
+                </p>
+
+                <p>
+                    <a class="btn btn-primary btn-lg" th:href="@{#}" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
+                    <a class="btn btn-secondary btn-lg" th:href="@{/members/leave}">회원 탈퇴</a>
+                    <a class="btn btn-primary btn-lg" th:href="@{/members/info}">회원 정보</a>
+                </p>
+
+            </div>
+
+            <div>
+                <h3 class="fw-light">게시판</h3>
+
+                <div class="container-fluid py-5">
+                    <p>
+                        <a class="btn btn-primary btn-lg" th:href="@{/boards/board}">글 목록</a>
+                        <a class="btn btn-primary btn-lg" th:href="@{/boards/write}">글 쓰기</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</div>
+</body>
+</html>
