@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+</head>
+<body class="bg-light">
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div class="py-5 text-center">
+            <h2>회원 가입</h2>
+        </div>
+
+        <main class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <form novalidate class="needs-validation" role="form" id = "frm" th:action="@{/members/new}"
+                          th:object="${memberForm}" method="post">
+
+                        <div class="mb-4">
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="you@example.com" required>
+                            <div class="invalid-feedback" id="dupEmail">
+                                이메일을 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="name" class="form-label">이름</label>
+                            <input type="text" class="form-control" th:field="*{name}" id="name" maxlength="15" placeholder="15글자까지 입력 가능" required>
+                            <div class="invalid-feedback">
+                                이름을 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">비밀번호</label>
+                            <input type="password" class="form-control" th:field="*{pwd}" id="password" placeholder="비밀번호" required>
+                            <div class="invalid-feedback">
+                                비밀번호를 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <button id="submitBtn" onclick="signUp()" class="w-100 btn btn-primary btn-lg" type="submit">회원 가입 하기</button>
+                        </div>
+
+                    </form>
+
+                    <div class="text-center">
+                        <div th:replace="fragments/footer :: footer"></div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+    var emailCheck = 0;
+
+    //부트스트랩의 유효성평가 사용하기 위해 추가
+    (function () {
+        'use strict'
+
+        var forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+    function signUp() {
+        if(emailCheck === 0) {
+            $("#frm").attr("onsubmit","event.preventDefault();").removeClass('was-validated');
+            return false;
+        } else if(emailCheck === 1){
+            $("#frm").prop("onsubmit", null);
+            return true;
+        }
+    }
+
+    $(document).ready(function() {
+        $("#email").blur(function () {
+            var emailData = $("#email").val();
+            var jsonMailData = {
+                "email" : emailData
+            };
+            var jsonData = JSON.stringify(jsonMailData);
+
+            if(emailData.length > 0) {
+                $.ajax({
+                    type: 'post',
+                    url: '/members/dupEmail',
+                    data: jsonData,
+                    contentType: "application/json; charset-utf-8",
+                    dataType: 'text',
+                    success: function (data){
+                            if(data === "이미 사용중인 이메일") {
+                                $('#email').removeClass("is-valid").addClass("is-invalid");
+                                $('#dupEmail').text(data).attr("class","invalid-feedback");
+                                emailCheck = 0;
+                            } else if(data === "사용 가능한 이메일") {
+                                $('#email').removeClass("is-invalid").addClass("is-valid");
+                                $('#dupEmail').text(data).attr("class","valid-feedback");
+                                emailCheck = 1;
+                            }
+                    }, error: function(request,status,error) {
+                        console.log("code:" + request.status + "\n"
+                            + "message:" + request.responseText + "\n" + "error:" + error);
+                        $('#dupEmail').replaceWith("error T.T").css("color","red");
+                    }
+                })
+            } else if(emailData.length === 0) {
+                $('#email').removeClass("is-valid").addClass("is-invalid");
+                $('#dupEmail').text("이메일을 입력해주세요.").attr("class","invalid-feedback");
+            }
+        })
+    })
+
+
+
+</script>
+
+</body>
+</html>
