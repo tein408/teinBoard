@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+</head>
+<body class="bg-light">
+    <div class="container">
+
+        <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div class="row align-items-center">
+            <div class="col-sm-3 text-center position-absolute top-50 start-50 translate-middle">
+
+                <h1 class="h3 mb-3 fw-normal">Welcome</h1>
+
+                <form role="form" action="/members/signUp" method="post">
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" name="email" id="floatingInput" placeholder="이메일" required>
+                        <label for="floatingInput">이메일</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="pwd" id="floatingPassword" placeholder="비밀번호" required>
+                        <label for="floatingPassword">비밀번호</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+                    </div>
+                </form>
+
+                <div th:replace="fragments/footer :: footer"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript">
+    (function () {
+        'use strict'
+
+        var forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+
+</html>
