@@ -9,10 +9,10 @@ import javax.validation.constraints.NotBlank;
 public class MemberForm {
 
     @NotBlank
-    private String name;
+    private String email;
 
     @NotBlank
-    private String email;
+    private String name;
 
     @NotBlank
     private String pwd;
@@ -22,9 +22,9 @@ public class MemberForm {
     public MemberForm() {
     }
 
-    public MemberForm(String name, String email, String pwd, String auth) {
-        this.name = name;
+    public MemberForm(String email, String name, String pwd, String auth) {
         this.email = email;
+        this.name = name;
         this.pwd = pwd;
         this.auth = auth;
     }
