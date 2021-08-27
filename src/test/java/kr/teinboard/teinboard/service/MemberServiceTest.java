@@ -1,6 +1,7 @@
 package kr.teinboard.teinboard.service;
 
 import kr.teinboard.teinboard.controller.MemberForm;
+import kr.teinboard.teinboard.domain.Member;
 import kr.teinboard.teinboard.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -30,7 +30,9 @@ class MemberServiceTest {
 
         //then
         //assertEquals(expected, actual)
-        assertEquals(1, savdId);
+        //assertEquals(1, savdId);
+        Member findMember = memberService.findId(savdId).get();
+        Assertions.assertThat(member.getName()).isEqualTo(findMember.getName());
     }
 
     @Test
