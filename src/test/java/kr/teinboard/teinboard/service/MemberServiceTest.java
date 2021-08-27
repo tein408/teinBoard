@@ -23,13 +23,14 @@ class MemberServiceTest {
     @Test
     public void memberSave() throws Exception {
         //given
-        MemberForm member = new MemberForm("test@test.email", "name", "pwd", "USER");
+        MemberForm member = new MemberForm("testEmail@test.email", "name", "pwd", "USER");
 
         //when
         Long savdId = memberService.saveMember(member);
 
         //then
-        assertEquals(savdId, 1);
+        //assertEquals(expected, actual)
+        assertEquals(1, savdId);
     }
 
     @Test
