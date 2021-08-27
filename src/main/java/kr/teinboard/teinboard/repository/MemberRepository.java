@@ -22,4 +22,10 @@ public class MemberRepository {
         return em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email).getResultList().stream().findAny();
     }
+
+    public Optional<Member> findById(Long memberId) {
+        return em.createQuery("select m from Member m where m.id = :memberId", Member.class)
+                .setParameter("memberId", memberId).getResultList().stream().findAny();
+    }
+
 }
