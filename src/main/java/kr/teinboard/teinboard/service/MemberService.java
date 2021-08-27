@@ -16,11 +16,15 @@ public class MemberService {
 
     @Transactional
     public Long saveMember(MemberForm memberForm) {
+        validateDuplicateEmail(memberForm.getEmail());
         String auth = "USER";
-
         Member member = new Member(memberForm.getEmail(), memberForm.getName(), memberForm.getPwd(), auth);
-
         return memberRepository.save(member);
+    }
+
+    public void validateDuplicateEmail(String email) {
+        memberRepository.findByEmail(email)
+                .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 이메일");});
     }
 
 }
