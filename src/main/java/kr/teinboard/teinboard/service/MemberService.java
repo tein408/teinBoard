@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -25,6 +27,10 @@ public class MemberService {
     public void validateDuplicateEmail(String email) {
         memberRepository.findByEmail(email)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 이메일");});
+    }
+
+    public Optional<Member> findId(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
 }
