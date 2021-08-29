@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -31,6 +32,19 @@ public class MemberController {
         }
         memberService.saveMember(memberForm);
         return "/members/signUp";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/members/dupEmail")
+    public String dupEmail (@RequestBody MemberForm memberForm) {
+        String message;
+        boolean findEmailResult = memberService.findByEmail(memberForm.getEmail());
+        if(findEmailResult) {
+            message = "이미 사용중인 이메일";
+        } else {
+            message = "사용 가능한 이메일";
+        }
+        return message;
     }
 
 }
