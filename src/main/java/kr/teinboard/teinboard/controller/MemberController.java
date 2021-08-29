@@ -18,13 +18,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping(value = "/members/new")
+    @GetMapping(value = "/member/new")
     public String createMemberForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
         return "/members/createMemberForm";
     }
 
-    @PostMapping(value = "/members/new")
+    @PostMapping(value = "/member/new")
     public String createMember(@RequestBody @Valid MemberForm memberForm, BindingResult result) {
         //BindingResult -> name field에 대해 에러를 뽑아준다.
         if(result.hasErrors()){
@@ -35,7 +35,7 @@ public class MemberController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/members/dupEmail")
+    @PostMapping(value = "/member/dupEmail")
     public String dupEmail (@RequestBody MemberForm memberForm) {
         String message;
         boolean findEmailResult = memberService.findByEmail(memberForm.getEmail());
