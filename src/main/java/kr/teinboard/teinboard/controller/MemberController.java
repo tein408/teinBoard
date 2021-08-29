@@ -36,8 +36,8 @@ public class MemberController {
     @PostMapping(value = "/member/dupEmail")
     public String dupEmail (@RequestBody MemberForm memberForm) {
         String message;
-        boolean findEmailResult = memberService.findByEmail(memberForm.getEmail());
-        if(findEmailResult) {
+        Member findEmailResult = memberService.findByEmail(memberForm.getEmail()).get();
+        if(findEmailResult.getEmail().equals(memberForm.getEmail())) {
             message = "이미 사용중인 이메일";
         } else {
             message = "사용 가능한 이메일";
@@ -49,5 +49,6 @@ public class MemberController {
     public String signUp(@ModelAttribute("memberForm") MemberForm memberForm) {
         return "/members/signUp";
     }
+
 
 }
