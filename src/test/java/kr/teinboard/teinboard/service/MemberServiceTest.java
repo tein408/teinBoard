@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -49,6 +50,20 @@ class MemberServiceTest {
 
         //then
         Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 이메일");
+    }
+
+    @Test
+    public void findByEamil() throws Exception {
+        //given
+        MemberForm member1 = new MemberForm("test@test.email", "name", "pwd", "USER");
+        MemberForm member2 = new MemberForm("test2@test.email", "name2", "pwd2", "USER");
+
+        //when
+        memberService.saveMember(member1);
+        memberService.saveMember(member2);
+
+        //then
+        assertEquals(true, memberService.findByEmail("test2@test.email"));
     }
 
 }
