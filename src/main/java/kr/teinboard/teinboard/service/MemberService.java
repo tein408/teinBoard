@@ -33,8 +33,8 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    public boolean findByEmail(String email) {
-        return memberRepository.findByEmail(email).isPresent();
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
 }
