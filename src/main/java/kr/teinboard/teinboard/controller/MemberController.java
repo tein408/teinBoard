@@ -1,14 +1,12 @@
 package kr.teinboard.teinboard.controller;
 
+import kr.teinboard.teinboard.domain.Member;
 import kr.teinboard.teinboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -45,6 +43,11 @@ public class MemberController {
             message = "사용 가능한 이메일";
         }
         return message;
+    }
+
+    @GetMapping(value = "/member/signUp")
+    public String signUp(@ModelAttribute("memberForm") MemberForm memberForm) {
+        return "/members/signUp";
     }
 
 }
