@@ -23,6 +23,7 @@ public class MemberController {
         return "/members/createMemberForm";
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/new")
     public String createMember(@RequestBody @Valid MemberForm memberForm, BindingResult result) {
         //BindingResult -> name field에 대해 에러를 뽑아준다.
@@ -30,7 +31,7 @@ public class MemberController {
             return "/members/createMemberForm";
         }
         memberService.saveMember(memberForm);
-        return "/members/signUp";
+        return "/member/signUp";
     }
 
     @ResponseBody
