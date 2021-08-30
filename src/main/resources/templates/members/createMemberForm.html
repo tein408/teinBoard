@@ -14,7 +14,7 @@
         <main class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <form novalidate class="needs-validation" role="form" id = "frm" th:action="@{/members/new}"
+                    <form novalidate class="needs-validation" role="form" id = "frm" th:action="@{/member/new}"
                           th:object="${memberForm}" method="post">
 
                         <div class="mb-4">
@@ -57,7 +57,7 @@
 
 </div>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 
     var emailCheck = 0;
@@ -101,7 +101,7 @@
             if(emailData.length > 0) {
                 $.ajax({
                     type: 'post',
-                    url: '/members/dupEmail',
+                    url: '/member/dupEmail',
                     data: jsonData,
                     contentType: "application/json; charset-utf-8",
                     dataType: 'text',

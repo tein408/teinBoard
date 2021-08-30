@@ -12,7 +12,7 @@
 
                 <h1 class="h3 mb-3 fw-normal">Welcome</h1>
 
-                <form role="form" th:action="@{/members/signUp}" method="post" th:object="${memberForm}">
+                <form role="form" th:action="@{/member/signUp}" method="post" th:object="${memberForm}">
 
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" th:field="*{email}" name="email" id="floatingInput" placeholder="이메일" required>
