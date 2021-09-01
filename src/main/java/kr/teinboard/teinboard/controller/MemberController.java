@@ -54,4 +54,25 @@ public class MemberController {
         return "/members/signUp";
     }
 
+    @ResponseBody
+    @PostMapping(value = "/member/signUp")
+    public String signUp(@RequestBody @Valid MemberForm memberForm, Model model) {
+        Optional<Member> findMember = memberService.findByEmail(memberForm.getEmail());
+        String message = "";
+        if(findMember.isPresent()) {
+            if(findMember.get().getEmail().equals(memberForm.getEmail())) {
+                if(findMember.get().getPwd().equals(memberForm.getPwd())) {
+                    model.addAttribute("email", findMember.get().getEmail());
+                    model.addAttribute("name", findMember.get().getName());
+                    message = "email : " + findMember.get().getEmail() + ", name : " + findMember.get().getName();
+                } else {
+                    message = "비밀번호가 틀렸습니다.";
+                }
+            }
+        } else {
+            message = "존재하지 않는 이메일입니다.";
+        }
+        return message;
+    }
+
 }
